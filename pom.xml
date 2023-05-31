@@ -25,7 +25,7 @@
     </parent>
 
     <artifactId>blaze-persistence</artifactId>
-    <version>1.6.8</version>
+    <version>1.6.8-Resourcify1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Blazebit Blaze-Persistence</name>
