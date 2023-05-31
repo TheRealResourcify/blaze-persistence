@@ -4,7 +4,7 @@
 
     <groupId>org.ow2.asm</groupId>
     <artifactId>asm-debug-all</artifactId>
-    <version>1.6.8</version>
+    <version>1.6.8-Resourcify1</version>
     
     <build>
         <plugins>
