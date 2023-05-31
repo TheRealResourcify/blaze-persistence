@@ -18,24 +18,23 @@ package com.blazebit.persistence.spring.data.webmvc.impl.json;
 
 import com.blazebit.persistence.spring.data.webmvc.EntityViewId;
 import com.blazebit.persistence.view.EntityViewManager;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * @author Moritz Becker
  * @since 1.5.0
  */
-public class EntityViewIdHandlerInterceptor extends HandlerInterceptorAdapter {
+public class EntityViewIdHandlerInterceptor implements HandlerInterceptor, AsyncHandlerInterceptor {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityViewIdHandlerInterceptor.class);
 
@@ -70,12 +69,12 @@ public class EntityViewIdHandlerInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) {
         this.entityViewIdValueHolder.value.remove();
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         this.entityViewIdValueHolder.value.remove();
     }
 
